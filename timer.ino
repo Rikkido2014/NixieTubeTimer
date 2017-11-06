@@ -31,6 +31,7 @@ void setup()
 	pinMode(4, OUTPUT);
 	pinMode(5, OUTPUT);
 	pinMode(6, OUTPUT);
+	pinMode(7, OUTPUT);
 
 	pinMode(8, INPUT_PULLUP);
 	pinMode(9, INPUT_PULLUP);
@@ -154,6 +155,8 @@ void set(int A, int B)
 	buttomBed = B;
 }
 
+
+
 void loop()
 {
 
@@ -180,13 +183,25 @@ void loop()
 			timerTime--;
 			int showNum = timerTime / 60 >= 1 ? timerTime / 60 : timerTime / 10 >= 1 ? timerTime / 10 : timerTime;
 			ShowNum(showNum, 10);
+			if (buttomB == ON)
+			{
+				mode = timer;
+				delay(50);
+				return;
+			}
 			delay(248);
 			ShowNum(showNum, 11);
+			if (buttomB == ON)
+			{
+				mode = timer;
+				delay(50);
+				return;
+			}
 			delay(750);
 		}
 		else
 		{
-			ShowNum(0, 10);
+			tone(7, 330,50);
 		}
 
 		
@@ -242,11 +257,10 @@ void loop()
 			delay(250);
 			return;
 		}
-		if (buttomA == ON && buttomA != buttomAed)
+		if (buttomA == ON)
 		{
 			timerTime = switchFif == ON ? 300 : 180;
 			mode = timing;
-			buttomAed = buttomA;
 			//delay(50);
 			return;
 		}
