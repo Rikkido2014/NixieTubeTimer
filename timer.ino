@@ -167,6 +167,13 @@ void loop()
 	moded = mode;
 	if (mode == timing)
 	{
+		if (buttomB == ON)
+		{
+			mode = timer;
+			delay(50);
+			return;
+		}
+
 		if (timerTime != 0)
 		{
 
@@ -182,12 +189,7 @@ void loop()
 			ShowNum(0, 10);
 		}
 
-		if (buttomB == ON)
-		{
-			mode = timer;
-			delay(250);
-			return;
-		}
+		
 		return;
 	}
 
@@ -200,7 +202,7 @@ void loop()
 			return;
 		}
 
-		if (buttomA == ON && buttomA != buttomBed)
+		if (buttomA == ON && buttomA != buttomAed)
 		{
 			if (showingNum == 11)
 			{
@@ -210,7 +212,7 @@ void loop()
 			ShowNum(showingNum, 11);
 			//Serial.write("A\n\r");
 			set(buttomA, buttomB);
-			delay(250);
+			delay(50);
 			return;
 		}
 
@@ -224,7 +226,7 @@ void loop()
 			ShowNum(showingNum, 11);
 			set(buttomA, buttomB);
 			//Serial.write("A\n\r");
-			delay(250);
+			delay(50);
 			return;
 		}
 		set(buttomA, buttomB);
@@ -232,6 +234,7 @@ void loop()
 	}
 	if (mode == timer)
 	{
+		
 		if (buttomA == ON && buttomB == ON)
 		{
 			mode = show;
@@ -239,21 +242,25 @@ void loop()
 			delay(250);
 			return;
 		}
-		if (buttomA == ON)
+		if (buttomA == ON && buttomA != buttomAed)
 		{
 			timerTime = switchFif == ON ? 300 : 180;
 			mode = timing;
-			delay(250);
+			buttomAed = buttomA;
+			//delay(50);
 			return;
 		}
+
 		if (switchFif == ON)
 		{
 			ShowNum(5, 11);
+			delay(100);
 			return;
 		}
 		if (switchThr == ON)
 		{
 			ShowNum(3, 11);
+			delay(100);
 			return;
 		}
 	}
